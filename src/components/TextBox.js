@@ -5,7 +5,6 @@ class TextBox extends Component{
     constructor(props){
         super(props);
         this.state = {post: "", url: ""};
-
         this.handelChange = this.handelChange.bind(this);
         this.handelSubmit = this.handelSubmit.bind(this);
         this.getUrl  = this.getUrl.bind(this);
@@ -23,7 +22,7 @@ class TextBox extends Component{
     }
 
     handelSubmit(e){
-        //console.log(this.state.post)
+        console.log(this.state.post)
         e.prventDefault()
     }
 
@@ -32,7 +31,7 @@ class TextBox extends Component{
             <div className="col-md-8">
             <label className="form-label">Creat a Post</label>
             <textarea className="form-control" value={this.state.post} onChange={this.handelChange} id="exampleFormControlTextarea1" rows={3}/>
-            <button className="btn btn-warning">Publish</button>
+            <button type="submit" className="btn btn-warning">Publish</button>
           </div>
         )
     }
