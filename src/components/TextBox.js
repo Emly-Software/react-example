@@ -21,9 +21,10 @@ class TextBox extends Component{
 
     render(){
         return(
-            <div className="mb-3">
-            <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-            <textarea className="form-control" value={this.state.post} rows={90} />
+            <div className="col-md-8">
+            <label className="form-label">Creat a Post</label>
+            <textarea className="form-control" id="exampleFormControlTextarea1" rows={3} defaultValue={""} />
+            <button className="btn btn-primary mt-6">Publish</button>
           </div>
         )
     }
