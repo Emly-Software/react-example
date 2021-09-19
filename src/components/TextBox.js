@@ -32,7 +32,7 @@ class TextBox extends Component{
             <div className="col-md-8">
             <label className="form-label">Creat a Post</label>
             <textarea className="form-control" value={this.state.post} onChange={this.handelChange} id="exampleFormControlTextarea1" rows={3}/>
-            <button className="btn btn-primary">Publish</button>
+            <button className="btn btn-warning">Publish</button>
           </div>
         )
     }
