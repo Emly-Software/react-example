@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 
 
 class TextBox extends Component{
-    constructor(prop){
-        super(prop);
+    constructor(props){
+        super(props);
         this.state = {post: ""};
 
         this.handelChange = this.handelChange.bind(this);
@@ -15,7 +15,7 @@ class TextBox extends Component{
     }
 
     handelSubmit(e){
-        console.log(state.post)
+        console.log(this.state.post)
         e.prventDefault()
     }
 
