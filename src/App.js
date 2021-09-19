@@ -1,5 +1,5 @@
 import './App.css';
-import ResizableTextarea from './components/ResizeableRextbox';
+import ResizableTextarea from './components/ResizeableTextbox';
 function App() {
   return (
     <div className="App">
