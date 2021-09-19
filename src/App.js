@@ -1,22 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import TextBox from './components/TextBox';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div className="mb-3">
+        <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+        <textarea className="form-control" id="exampleFormControlTextarea1" rows={3} defaultValue={""} />
+      </div>
       </header>
     </div>
   );
