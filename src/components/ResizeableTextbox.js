@@ -1,4 +1,6 @@
 import React from 'react';
+const emly = require('emly-nodejs')(process.env.key);
+
 class ResizableTextarea extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -47,8 +49,14 @@ class ResizableTextarea extends React.PureComponent {
         let post =  this.state.post;
         let urls = this.getUrl(post);
         let newUrls;
-        for (let l = 0; l < urls.length; l++) {
-            const element = urls[l];
+
+        //loop through urls
+        if (urls) {
+            for (let l = 0; l < urls.length; l++) {
+                const element = urls[l];
+                //convert each url to shortlink
+
+            }
         }
 
     }
