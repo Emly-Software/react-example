@@ -1,6 +1,5 @@
 import React from 'react';
-const emly = require('emly-nodejs')(process.env.key);
-
+import axios from 'axios';
 class ResizableTextarea extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -15,6 +14,12 @@ class ResizableTextarea extends React.PureComponent {
         this.getUrl = this.getUrl.bind(this);
     }
 
+    componentDidMount(){
+        axios.get('http://localhost:5000/links')
+        .then(res => {
+            console.log(res);
+        })
+    }
     getUrl= (post) =>{
         var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
         return post.match(urlRegex);
@@ -50,20 +55,12 @@ class ResizableTextarea extends React.PureComponent {
         let urls = this.getUrl(post);
         let newUrls;
 
-        emly.link.list()
-        .then(function(body){
-            console.log(body);
-        })
-        .catch(function(error){
-            console.log(error);
-        })
-
+    
         //loop through urls
         if (urls) {
             for (let l = 0; l < urls.length; l++) {
                 const element = urls[l];
                 //convert each url to shortlink
-
             }
         }
 
