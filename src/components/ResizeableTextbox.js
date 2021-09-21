@@ -50,6 +50,14 @@ class ResizableTextarea extends React.PureComponent {
         let urls = this.getUrl(post);
         let newUrls;
 
+        emly.link.list()
+        .then(function(body){
+            console.log(body);
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+
         //loop through urls
         if (urls) {
             for (let l = 0; l < urls.length; l++) {
