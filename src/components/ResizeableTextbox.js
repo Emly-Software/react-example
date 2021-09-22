@@ -15,10 +15,7 @@ class ResizableTextarea extends React.PureComponent {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/links')
-        .then(res => {
-            console.log(res);
-        })
+        
     }
     getUrl= (post) =>{
         var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
@@ -53,11 +50,24 @@ class ResizableTextarea extends React.PureComponent {
         e.preventDefault();
         let post =  this.state.post;
         let urls = this.getUrl(post);
-        let newUrls;
+        let newUrl;
 
-    
-        //loop through urls
-        if (urls) {
+        // axios.get('http://localhost:9000/links')
+        // .then(res => {
+        //     console.log(res);
+        // })
+
+        console.log(urls[0]);
+        axios.post('http://localhost:9000/create', 
+        {url: urls[0]})
+        .then(res => {
+            console.log(res.data);
+        })
+        
+
+        //console.log(urls[0]);
+        //if url is greaterthan 1, loop through urls
+        if (urls && urls.length > 1) {
             for (let l = 0; l < urls.length; l++) {
                 const element = urls[l];
                 //convert each url to shortlink
