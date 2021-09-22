@@ -8,16 +8,29 @@ class ResizableTextarea extends React.PureComponent {
             rows: 5,
             minRows: 5,
             maxRows: 20,
+            showPost: false,
+            newPost: null,
         };
         this.handelSubmit = this.handelSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.getUrl = this.getUrl.bind(this);
+        this.replaceUrl =  this.replaceUrl.bind(this);
     }
 
-    componentDidMount(){
-        
+
+    replaceUrl = (post) => {
+        if(!post) return;
+        var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+        return post.replace(urlRegex, function(url) {
+            var link = url;
+            if (!link.match('^https?:\/\/') ) {
+                link = 'http://' + link;
+            }
+        return '<a href="' + link + '" target="_blank" rel="noopener noreferrer">' + url + '</a>'
+        })
     }
-    getUrl= (post) =>{
+
+    getUrl = (post) => {
         var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
         return post.match(urlRegex);
     }
@@ -46,40 +59,33 @@ class ResizableTextarea extends React.PureComponent {
         });
     };
 
-    handelSubmit = (e) =>{
+    handelSubmit = (e) => {
         e.preventDefault();
-        let post =  this.state.post;
+        let post = this.state.post;
         let urls = this.getUrl(post);
-        let newUrl;
+        var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+        var self = this;
 
-        // axios.get('http://localhost:9000/links')
-        // .then(res => {
-        //     console.log(res);
-        // })
 
-        console.log(urls[0]);
-        axios.post('http://localhost:9000/create', 
-        {url: urls[0]})
-        .then(res => {
-            console.log(res.data);
-        })
-        
-
-        //console.log(urls[0]);
-        //if url is greaterthan 1, loop through urls
-        if (urls && urls.length > 1) {
-            for (let l = 0; l < urls.length; l++) {
-                const element = urls[l];
-                //convert each url to shortlink
-            }
-        }
-
+        axios.post('http://localhost:9000/create',
+            { url: urls[0] })
+            .then(function (res) {
+                if (res.data) {
+                    const url = res.data.data.short_url;
+                    const newPost =   post.replace(urlRegex, res.data.data.short_url);
+                  self.setState({
+                    showPost: true, 
+                    newPost: newPost
+                });
+                }
+            })
     }
 
+    
     render() {
         return (
             <div className="col-md-8">
-                <form onSubmit={this.handelSubmit}>
+                {!this.state.showPost && <form onSubmit={this.handelSubmit}>
                     <label className="form-label">Creat a Post</label>
                     <textarea
                         rows={this.state.rows}
@@ -89,7 +95,16 @@ class ResizableTextarea extends React.PureComponent {
                         onChange={this.handleChange}
                     />
                     <button type="submit" className="btn btn-warning">Publish</button>
-                </form>
+                </form>}
+                {this.state.showPost &&
+                    <div className="card" style={{border: '1px', margin: "20px"}}>
+                        <div className="card-body">
+                            <p className="card-text m-4">
+                            <span dangerouslySetInnerHTML={{__html: this.replaceUrl(this.state.newPost)}} />
+                            </p>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
